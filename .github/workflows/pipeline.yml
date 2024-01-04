@@ -7,9 +7,13 @@ on:
 
 jobs:
   deploy:
+    
     permissions:
       pages: write      # to deploy to Pages
       id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -23,6 +27,7 @@ jobs:
     - name: Build
       run: npm run build:prod
     - name: Deploy GitHub Pages site
+      id: deployment
       uses: actions/deploy-pages@v4.0.2
 
             
